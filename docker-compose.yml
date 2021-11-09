@@ -8,3 +8,10 @@ services:
       - ./tmp/postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=password
+
+  redis:
+    image: "redis:6.2.6-alpine"
+    ports:
+      - 6379
+    volumes:
+      - ./tmp/redis_data:/var/lib/redis/data

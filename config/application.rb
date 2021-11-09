@@ -34,5 +34,8 @@ module FastCoffeDelivery
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.cache_store = :redis_cache_store, { url: ENV['REDIS_SERVER'], namespace: 'cache' }
+    config.telegram_updates_controller.session_store = :redis_cache_store
   end
 end
