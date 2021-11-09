@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+#### In development start
+```bash
+rake telegram:bot:poller
+```
