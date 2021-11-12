@@ -63,6 +63,7 @@ dokku domains:add fastcoffedelivery fastcoffedeliverybot.ml
 dokku domains:add fastcoffedelivery www.fastcoffedeliverybot.ml
 dokku domains:set fastcoffedelivery fastcoffedeliverybot.ml
 
+
 dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
 dokku config:set --no-restart fastcoffedelivery DOKKU_LETSENCRYPT_EMAIL=sikorskyalexandr08@gmail.com
 dokku letsencrypt:enable fastcoffedelivery
