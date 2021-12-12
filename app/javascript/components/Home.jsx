@@ -1,17 +1,6 @@
-import { Layout } from "antd";
-import React from "react";
-import Header from "./Header";
+import React from 'react';
+import Header from './Header';
 
-const { Content, Footer } = Layout;
-
-export default () => (
-    <Layout className="layout">
-        <Header />
-        <Content style={{ padding: "0 50px" }}>
-            <div className="site-layout-content" style={{ margin: "100px auto" }}>
-                HELLO
-            </div>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>Fast Delivery ©2020.</Footer>
-    </Layout>
-);
+export default function () {
+  return <div>ME</div>;
+}
