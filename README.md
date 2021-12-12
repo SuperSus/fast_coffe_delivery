@@ -72,7 +72,7 @@ dokku letsencrypt:cron-job --add
 
 PROCFILE:
 web: bundle exec puma -C config/puma.rb
-release: bundle exec rails db:migrate && bundle exec rails assets:precompile
+release: bundle exec rails db:migrate
 
 ### DEPLOYMNET
 
@@ -82,3 +82,11 @@ git push dokku main:master
 #### LOGS
 dokku logs fastcoffedelivery -t
 dokku logs:failed --all
+
+#### PROD CONSOLE
+dokku run fastcoffedelivery rails c
+
+#### LINTERS
+```bash
+  eslint --ext .jsx app/javascript --fix
+```
