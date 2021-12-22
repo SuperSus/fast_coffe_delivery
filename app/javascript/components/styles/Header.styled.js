@@ -7,7 +7,7 @@ export const StyledItem = styled.div`
  align-items: center;
  padding: 0 20px;
  
- &:hover {
+ &:hover, &:active {
    opacity: 0.9;
    transform: scale(0.98);
  }
@@ -24,8 +24,7 @@ export const StyledCircleContainer = styled.div`
 `;
 
 export const StyledContentBlock = styled.div`
- flex: 5 1 0;
- padding: 0 20px;
+ flex: 8 1 0;
 `;
 
 export const StyledNav = styled.nav`
