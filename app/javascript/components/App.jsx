@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import AppRoutes from '../routes/index';
+import { CartContextProvider } from '../contexts/CartContext';
 
 const Styles = {
   Wrapper: styled.main`
@@ -33,10 +34,12 @@ const CSSReset = createGlobalStyle`
 
 const App = function () {
   return (
-    <Styles.Wrapper>
-      <CSSReset />
-      {AppRoutes}
-    </Styles.Wrapper>
+    <CartContextProvider>
+      <Styles.Wrapper>
+        <CSSReset />
+        {AppRoutes}
+      </Styles.Wrapper>
+    </CartContextProvider>
   );
 };
 export default App;

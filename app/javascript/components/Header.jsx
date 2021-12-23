@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftCircle, ShoppingCart } from 'react-feather';
 import {
@@ -36,6 +37,14 @@ const Header = function ({ children }) {
       </StyledNav>
     </StyledHeader>
   );
+};
+
+Header.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.element,
+  ]).isRequired,
 };
 
 export default Header;
