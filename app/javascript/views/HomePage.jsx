@@ -1,11 +1,12 @@
 import React from 'react';
-import { Header, ItemsList } from '../components';
+import { Header, ItemsList, OrderButton } from '../components';
 
 const HomePage = function () {
   return (
     <>
       <Header>Кофе</Header>
       <ItemsList />
+      <OrderButton />
     </>
   );
 };

@@ -8,7 +8,6 @@ import {
   BoldText,
   Description,
 } from './styles/Item.styled';
-
 import { CounterBox, CounterButton, CounterValue } from './styles/Counter.styled';
 
 const Counter = function ({
@@ -22,7 +21,7 @@ const Counter = function ({
         && (
           <>
             <CounterButton
-              onClick={() => { onDecrement(product); product.quantity--; }}
+              onClick={() => { onDecrement(product.id); product.quantity--; }}
               className="control-button"
             >
               -

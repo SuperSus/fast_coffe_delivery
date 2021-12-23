@@ -1,4 +1,5 @@
 import Header from './Header';
 import ItemsList from './ItemsList';
+import OrderButton from './OrderButton';
 
-export { Header, ItemsList };
+export { Header, ItemsList, OrderButton };
