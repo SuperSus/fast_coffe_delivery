@@ -34,14 +34,18 @@ https://kukicola.io/posts/deploying-rails-6-application-with-dokku/
 ssh root@ip
 
 - add swap file to prevent oom
+```bash
 fallocate -l 4G /swapfile
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
-
-vi /etc/fstab
+```
+- vi /etc/fstab
 - add this line to the bottom
+```bash
 /swapfile none swap sw 0 0
+```
+
 
 dokku apps:create fastcoffedelivery
 dokku buildpacks:add fastcoffedelivery https://github.com/heroku/heroku-buildpack-nodejs.git

@@ -11,17 +11,22 @@ import {
 import { CounterBox, CounterButton, CounterValue } from './styles/Counter.styled';
 
 const Counter = function ({
-  onDecrement,
-  onIncrement,
+  addProduct,
+  removeProduct,
+  setEditModalState,
   product,
 }) {
+  const isEditable = product.toppings && product.toppings.length > 0;
+  const onIncrement = isEditable
+    ? () => setEditModalState({ isOpen: true, product })
+    : () => { addProduct(product); product.quantity++; };
   return (
     <CounterBox>
       { product.quantity > 0
         && (
           <>
             <CounterButton
-              onClick={() => { onDecrement(product.id); product.quantity--; }}
+              onClick={() => { removeProduct(product.id); product.quantity--; }}
               className="control-button"
             >
               -
@@ -33,7 +38,7 @@ const Counter = function ({
           </>
         )}
       <CounterButton
-        onClick={() => { onIncrement(product); product.quantity++; }}
+        onClick={() => onIncrement(product)}
         className="control-button"
       >
         +
@@ -43,13 +48,15 @@ const Counter = function ({
 };
 
 Counter.defaultProps = {
-  onDecrement: () => {},
-  onIncrement: () => {},
+  addProduct: () => {},
+  removeProduct: () => {},
+  setEditModalState: () => {},
 };
 
 Counter.propTypes = {
-  onDecrement: PropTypes.func,
-  onIncrement: PropTypes.func,
+  removeProduct: PropTypes.func,
+  addProduct: PropTypes.func,
+  setEditModalState: PropTypes.func,
   product: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
@@ -58,10 +65,11 @@ Counter.propTypes = {
     salePrice: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
+    toppings: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 
-const Item = function ({ product }) {
+const Item = function ({ product, setEditModalState, withCounter }) {
   const {
     title, image, price, salePrice, description,
   } = product;
@@ -69,7 +77,7 @@ const Item = function ({ product }) {
   const cartContext = useContext(CartContext);
   const displayPrice = salePrice || price;
   return (
-    <ItemBox>
+    <ItemBox withBorder={withCounter}>
       <ContentBox>
         <Image src={image} />
       </ContentBox>
@@ -82,17 +90,27 @@ const Item = function ({ product }) {
           {displayPrice}
           &#8372;
         </BoldText>
-        <Counter
-          product={product}
-          onDecrement={cartContext.removeProduct}
-          onIncrement={cartContext.addProduct}
-        />
+        {withCounter && (
+          <Counter
+            product={product}
+            removeProduct={cartContext.removeProduct}
+            addProduct={cartContext.addProduct}
+            setEditModalState={setEditModalState}
+          />
+        )}
       </ContentBox>
     </ItemBox>
   );
 };
 
+Item.defaultProps = {
+  setEditModalState: () => {},
+  withCounter: true,
+};
+
 Item.propTypes = {
+  setEditModalState: PropTypes.func,
+  withCounter: PropTypes.bool,
   product: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
@@ -101,6 +119,7 @@ Item.propTypes = {
     salePrice: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
+    toppings: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 
