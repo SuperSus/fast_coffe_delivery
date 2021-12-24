@@ -5,43 +5,35 @@ import React, {
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 
-const CartContext = createContext([]);
+/**
+ * CartContext.
+ * contains { product_id: array<Product> }
+ * example:
+ * {
+ *   1: [{...product1}, {...product1}],
+ *   2: [{...product2}]
+ * }
+ */
+const CartContext = createContext({});
 CartContext.displayName = 'CartContext';
 export default CartContext;
 
 const addProductToCart = (product, state) => {
-  const updatedCart = [...state];
-  const updatedItemIndex = updatedCart.findIndex(
-    (item) => item.id === product.id,
-  );
-
-  if (updatedItemIndex < 0) {
-    updatedCart.push({ ...product, quantity: 1 });
+  const updatedCart = { ...state };
+  if (updatedCart[product.id]) {
+    updatedCart[product.id].push({ ...product, quantity: product.quantity + 1 });
   } else {
-    const updatedItem = {
-      ...updatedCart[updatedItemIndex],
-    };
-    updatedItem.quantity++;
-    updatedCart[updatedItemIndex] = updatedItem;
+    updatedCart[product.id] = [{ ...product, quantity: 1 }];
   }
-
   return updatedCart;
 };
 
 const removeProductFromCart = (productId, state) => {
-  const updatedCart = [...state];
-  const updatedItemIndex = updatedCart.findIndex((item) => item.id === productId);
-
-  const updatedItem = {
-    ...updatedCart[updatedItemIndex],
-  };
-  updatedItem.quantity--;
-  if (updatedItem.quantity <= 0) {
-    updatedCart.splice(updatedItemIndex, 1);
-  } else {
-    updatedCart[updatedItemIndex] = updatedItem;
+  const updatedCart = { ...state };
+  updatedCart[productId].pop();
+  if (updatedCart[productId].length === 0) {
+    delete updatedCart[productId];
   }
-
   return updatedCart;
 };
 
@@ -59,7 +51,7 @@ const CartReducer = (state, action) => {
 };
 
 export const CartContextProvider = function ({ children }) {
-  const [cartState, dispatch] = useReducer(CartReducer, []);
+  const [cartState, dispatch] = useReducer(CartReducer, {});
 
   const addProduct = (product) => {
     dispatch({ type: ADD_PRODUCT, product });
