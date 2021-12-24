@@ -1,3 +1,5 @@
+import '@reach/dialog/styles.css';
+import 'react-spring-modal/styles.css';
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import AppRoutes from '../routes/index';

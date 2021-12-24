@@ -13,3 +13,9 @@ AntDesign
 Item, ItemList components
 ### Added Dependencies
 styled-system
+
+## 2021-23-12
+### Added
+CartContext, OrderButton, EditItemModal
+### Added Dependencies
+react-spring-modal

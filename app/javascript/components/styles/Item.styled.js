@@ -9,12 +9,12 @@ export const ItemsWrapper = styled.div`
 `;
 
 export const ItemBox = styled.div`
-  border: 1px solid #F0F0F0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: ${({ withBorder }) => (withBorder ? '0px 10px' : '0px')};
+  ${({ withBorder }) => (withBorder ? 'border: 1px solid #F0F0F0;' : '')};
 `;
 
 export const ContentBox = styled.div`
