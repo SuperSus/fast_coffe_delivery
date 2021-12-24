@@ -11,34 +11,34 @@ import {
 import { CounterBox, CounterButton, CounterValue } from './styles/Counter.styled';
 
 const Counter = function ({
-  addProduct,
-  removeProduct,
   setEditModalState,
   product,
 }) {
+  const cartContext = useContext(CartContext);
+  const quantity = cartContext.cartState[product.id]?.length || 0;
   const isEditable = product.toppings && product.toppings.length > 0;
   const onIncrement = isEditable
     ? () => setEditModalState({ isOpen: true, product })
-    : () => { addProduct(product); product.quantity++; };
+    : () => cartContext.addProduct(product);
   return (
     <CounterBox>
-      { product.quantity > 0
+      { quantity > 0
         && (
           <>
             <CounterButton
-              onClick={() => { removeProduct(product.id); product.quantity--; }}
+              onClick={() => cartContext.removeProduct(product.id)}
               className="control-button"
             >
               -
             </CounterButton>
             <CounterValue>
               x
-              {product.quantity}
+              {quantity}
             </CounterValue>
           </>
         )}
       <CounterButton
-        onClick={() => onIncrement(product)}
+        onClick={() => onIncrement()}
         className="control-button"
       >
         +
@@ -48,14 +48,10 @@ const Counter = function ({
 };
 
 Counter.defaultProps = {
-  addProduct: () => {},
-  removeProduct: () => {},
   setEditModalState: () => {},
 };
 
 Counter.propTypes = {
-  removeProduct: PropTypes.func,
-  addProduct: PropTypes.func,
   setEditModalState: PropTypes.func,
   product: PropTypes.shape({
     id: PropTypes.number,
@@ -74,7 +70,6 @@ const Item = function ({ product, setEditModalState, withCounter }) {
     title, image, price, salePrice, description,
   } = product;
 
-  const cartContext = useContext(CartContext);
   const displayPrice = salePrice || price;
   return (
     <ItemBox withBorder={withCounter}>
@@ -93,8 +88,6 @@ const Item = function ({ product, setEditModalState, withCounter }) {
         {withCounter && (
           <Counter
             product={product}
-            removeProduct={cartContext.removeProduct}
-            addProduct={cartContext.addProduct}
             setEditModalState={setEditModalState}
           />
         )}

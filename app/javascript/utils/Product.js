@@ -7,3 +7,9 @@ export const getPrice = function (product) {
   }
   return product.price;
 };
+
+export const getTotalPrice = function (cart) {
+  return Object.values(cart)
+    .flat()
+    .reduce((sum, item) => (sum + getPrice(item)), 0);
+};

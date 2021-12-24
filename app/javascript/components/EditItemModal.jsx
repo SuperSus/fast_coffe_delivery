@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { BottomModal, ModalCloseTarget } from 'react-spring-modal';
 import { PlusCircle, Check } from 'react-feather';
+import CartContext from '../contexts/CartContext';
 import Item from './Item';
 import { getPrice } from '../utils/Product';
 import { StyledOutlinedMainButton } from './styles/OutlinedMainButton.styled';
@@ -39,6 +40,7 @@ Topping.prototypes = {
 };
 
 const EditItemModal = function ({ state, setState }) {
+  const cartContext = useContext(CartContext);
   const staticModalStyles = { minWidth: '100%' };
   const { product, isOpen } = state;
   const text = `Добавить за ${getPrice(product)}`;
@@ -68,7 +70,7 @@ const EditItemModal = function ({ state, setState }) {
         ))}
       </CheckBoxesWrapper>
       <ModalCloseTarget>
-        <StyledOutlinedMainButton>
+        <StyledOutlinedMainButton onClick={() => cartContext.addProduct(product)}>
           {text}
           &#8372;
           <PlusCircle size="28" />
