@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import CartContext from '../contexts/CartContext';
 import {
   ItemBox,
   Image,
@@ -7,33 +8,32 @@ import {
   BoldText,
   Description,
 } from './styles/Item.styled';
-
 import { CounterBox, CounterButton, CounterValue } from './styles/Counter.styled';
 
 const Counter = function ({
   onDecrement,
   onIncrement,
-  value,
+  product,
 }) {
   return (
     <CounterBox>
-      { value > 0
+      { product.quantity > 0
         && (
           <>
             <CounterButton
-              onClick={onDecrement}
+              onClick={() => { onDecrement(product.id); product.quantity--; }}
               className="control-button"
             >
               -
             </CounterButton>
             <CounterValue>
               x
-              {value}
+              {product.quantity}
             </CounterValue>
           </>
         )}
       <CounterButton
-        onClick={onIncrement}
+        onClick={() => { onIncrement(product); product.quantity++; }}
         className="control-button"
       >
         +
@@ -45,23 +45,28 @@ const Counter = function ({
 Counter.defaultProps = {
   onDecrement: () => {},
   onIncrement: () => {},
-  value: 0,
 };
 
 Counter.propTypes = {
   onDecrement: PropTypes.func,
   onIncrement: PropTypes.func,
-  value: PropTypes.number,
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    image: PropTypes.any,
+    price: PropTypes.number,
+    salePrice: PropTypes.number,
+    description: PropTypes.string,
+    quantity: PropTypes.number,
+  }).isRequired,
 };
 
-const Item = function ({
-  data,
-  onDecrement,
-  onIncrement,
-}) {
+const Item = function ({ product }) {
   const {
-    title, image, price, salePrice, description, quantity,
-  } = data;
+    title, image, price, salePrice, description,
+  } = product;
+
+  const cartContext = useContext(CartContext);
   const displayPrice = salePrice || price;
   return (
     <ItemBox>
@@ -78,24 +83,18 @@ const Item = function ({
           &#8372;
         </BoldText>
         <Counter
-          value={quantity}
-          onDecrement={onDecrement}
-          onIncrement={onIncrement}
+          product={product}
+          onDecrement={cartContext.removeProduct}
+          onIncrement={cartContext.addProduct}
         />
       </ContentBox>
     </ItemBox>
   );
 };
 
-Item.defaultProps = {
-  onDecrement: () => {},
-  onIncrement: () => {},
-};
-
 Item.propTypes = {
-  onDecrement: PropTypes.func,
-  onIncrement: PropTypes.func,
-  data: PropTypes.shape({
+  product: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     image: PropTypes.any,
     price: PropTypes.number,
