@@ -61,7 +61,7 @@ const EditItemModal = function ({ state, setState }) {
       <Item product={product} withCounter={false} />
       <CheckBoxesWrapper>
         <Divider />
-        {product.toppings && product.toppings.map((item) => (
+        {product.toppings?.map((item) => (
           <Topping
             key={item.id}
             topping={item}

@@ -15,7 +15,7 @@ const BackButton = function () {
   );
 };
 
-const CartButton = function () {
+export const CartButton = function () {
   return (
     <StyledItem>
       <StyledCircleContainer>
@@ -25,26 +25,47 @@ const CartButton = function () {
   );
 };
 
-const Header = function ({ children }) {
+export const HeaderContent = function ({ children }) {
   return (
-    <StyledHeader>
-      <StyledNav>
-        <BackButton />
-        <StyledContentBlock>
-          { children }
-        </StyledContentBlock>
-        <CartButton />
-      </StyledNav>
-    </StyledHeader>
+    <StyledContentBlock>
+      { children }
+    </StyledContentBlock>
   );
 };
 
-Header.propTypes = {
+HeaderContent.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.element,
   ]).isRequired,
+};
+
+export const TotalPrice = function ({ totalPrice }) {
+  return (
+    <StyledItem>
+      {totalPrice}
+      &#8372;
+    </StyledItem>
+  );
+};
+
+TotalPrice.propTypes = {
+  totalPrice: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+};
+
+const Header = function ({ children }) {
+  return (
+    <StyledHeader>
+      <StyledNav>
+        <BackButton />
+        {children}
+      </StyledNav>
+    </StyledHeader>
+  );
 };
 
 export default Header;
