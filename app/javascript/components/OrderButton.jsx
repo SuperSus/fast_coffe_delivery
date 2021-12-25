@@ -1,25 +1,26 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'react-feather';
 import CartContext from '../contexts/CartContext';
-import { getTotalPrice } from '../utils/Product';
 import { StyledOutlinedMainButton, OutlinedMainButtonBox, StubBox } from './styles/OutlinedMainButton.styled';
 
 const OrderButton = function () {
   const cartContext = useContext(CartContext);
-  const totalCost = getTotalPrice(cartContext.cartState);
-  const text = `Заказать за ${totalCost}`;
+  const text = `Заказать за ${cartContext.getTotalPrice()}`;
   return (
     Object.keys(cartContext.cartState).length > 0
     && (
       <>
         <StubBox />
-        <OutlinedMainButtonBox>
-          <StyledOutlinedMainButton>
-            {text}
-            &#8372;
-            <ArrowRight />
-          </StyledOutlinedMainButton>
-        </OutlinedMainButtonBox>
+        <Link to="/cart">
+          <OutlinedMainButtonBox>
+            <StyledOutlinedMainButton>
+              {text}
+              &#8372;
+              <ArrowRight />
+            </StyledOutlinedMainButton>
+          </OutlinedMainButtonBox>
+        </Link>
       </>
     )
   );

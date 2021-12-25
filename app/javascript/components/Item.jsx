@@ -1,32 +1,44 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CartContext from '../contexts/CartContext';
+import { getPrice } from '../utils/Product';
 import {
   ItemBox,
   Image,
+  MainContentBox,
   ContentBox,
   BoldText,
   Description,
+  Topping,
+  ToppingsBox,
+  ToppingPrice,
+  ToppingTitle,
 } from './styles/Item.styled';
 import { CounterBox, CounterButton, CounterValue } from './styles/Counter.styled';
 
 const Counter = function ({
   setEditModalState,
   product,
+  cartMode,
 }) {
   const cartContext = useContext(CartContext);
-  const quantity = cartContext.cartState[product.id]?.length || 0;
-  const isEditable = product.toppings && product.toppings.length > 0;
-  const onIncrement = isEditable
+  const quantity = cartMode
+    ? cartContext.getExactQuantity(product)
+    : cartContext.getQuantity(product);
+  const isEditable = product.toppings?.length > 0;
+  const onIncrement = isEditable && !cartMode
     ? () => setEditModalState({ isOpen: true, product })
     : () => cartContext.addProduct(product);
+  const onDecrement = cartMode
+    ? () => cartContext.removeProductByMatch(product)
+    : () => cartContext.removeProduct(product.id);
   return (
     <CounterBox>
       { quantity > 0
         && (
           <>
             <CounterButton
-              onClick={() => cartContext.removeProduct(product.id)}
+              onClick={() => onDecrement()}
               className="control-button"
             >
               -
@@ -48,11 +60,13 @@ const Counter = function ({
 };
 
 Counter.defaultProps = {
+  cartMode: false,
   setEditModalState: () => {},
 };
 
 Counter.propTypes = {
   setEditModalState: PropTypes.func,
+  cartMode: PropTypes.bool,
   product: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
@@ -65,45 +79,69 @@ Counter.propTypes = {
   }).isRequired,
 };
 
-const Item = function ({ product, setEditModalState, withCounter }) {
+const Item = function ({
+  product, setEditModalState, withCounter, cartMode,
+}) {
   const {
-    title, image, price, salePrice, description,
+    title, image, description,
   } = product;
-
-  const displayPrice = salePrice || price;
   return (
     <ItemBox withBorder={withCounter}>
-      <ContentBox>
-        <Image src={image} />
-      </ContentBox>
-      <ContentBox flex="5 1 0">
-        <BoldText>{title}</BoldText>
-        <Description>{description}</Description>
-      </ContentBox>
-      <ContentBox flex="2 1 0" alignItems="flex-end">
-        <BoldText>
-          {displayPrice}
-          &#8372;
-        </BoldText>
-        {withCounter && (
+      <MainContentBox>
+        <ContentBox>
+          <Image src={image} />
+        </ContentBox>
+        <ContentBox flex="5 1 0">
+          <BoldText>{title}</BoldText>
+          <Description>{description}</Description>
+        </ContentBox>
+        <ContentBox flex="2 1 0" alignItems="flex-end">
+          <BoldText>
+            {getPrice(product)}
+            &#8372;
+          </BoldText>
+          {withCounter && (
           <Counter
             product={product}
             setEditModalState={setEditModalState}
+            cartMode={cartMode}
           />
-        )}
-      </ContentBox>
+          )}
+        </ContentBox>
+      </MainContentBox>
+      <ToppingsBox>
+        { cartMode && product
+          .toppings
+          ?.filter((item) => item.selected)
+          ?.map((item) => (
+            <Topping key={`${product.id}_${item.id}`}>
+              <ToppingTitle>
+                &#43;
+                &nbsp;
+                {item.title}
+              </ToppingTitle>
+              <ToppingPrice>
+                &#43;
+                {item.price}
+                &#8372;
+              </ToppingPrice>
+            </Topping>
+          ))}
+      </ToppingsBox>
     </ItemBox>
   );
 };
 
 Item.defaultProps = {
   setEditModalState: () => {},
+  cartMode: false,
   withCounter: true,
 };
 
 Item.propTypes = {
   setEditModalState: PropTypes.func,
   withCounter: PropTypes.bool,
+  cartMode: PropTypes.bool,
   product: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,

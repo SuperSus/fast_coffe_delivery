@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   namespace :api do
     get 'home/index'
   end
-
   root to: 'home#index'
 
   get '/check.txt', to: proc {[200, {}, ['it_works']]}
+  get '*path', to: 'home#index'
 end

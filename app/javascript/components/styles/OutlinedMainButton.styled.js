@@ -30,4 +30,5 @@ export const StyledOutlinedMainButton = styled.div`
   width: 100%;
   font-size: 20px;
   line-height: 28px;
+  color:#000;
 `;
