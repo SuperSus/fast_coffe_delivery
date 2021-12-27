@@ -32,6 +32,10 @@ const CSSReset = createGlobalStyle`
     font-family: Roboto;
     font-style: normal;
   }
+  
+  a {
+    text-decoration: none;
+  }
 `;
 
 const App = function () {

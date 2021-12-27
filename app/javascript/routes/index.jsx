@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { HomePage, CartPage } from '../views';
+import { MenuPage, CartPage, HomePage } from '../views';
 
 export default (
   <Router>
     <Routes>
       <Route path="cart" element={<CartPage />} />
+      <Route path="menu/:category" element={<MenuPage />} />
       <Route path="/" element={<HomePage />} />
     </Routes>
   </Router>
