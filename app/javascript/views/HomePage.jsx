@@ -1,51 +1,70 @@
 import React from 'react';
-import DefaultLogo from 'images/logo.jpg';
+import { Link } from 'react-router-dom';
 import {
-  Header, HeaderContent, ItemsList, OrderButton, CartButton,
-} from '../components';
+  Clock, ShoppingBag, Coffee, Folder, Heart, Home,
+} from 'react-feather';
+import ShopLogo from 'images/IndustrialCoffee.png';
+import {
+  LogoBox, ShopInfoBox, ShopInfoItem, ShopInfoItemSpan, MenuBox, MenuItem, MenuInfoItemSpan,
+} from '../components/styles/ShopPage.styled';
 
-const toppings = [
-  {
-    id: 1, title: 'Кокосовое Молоко', price: 2, selected: false,
-  },
-  {
-    id: 2, title: 'Безлактозное Молоко', price: 3, selected: false,
-  },
-  {
-    id: 3, title: 'Миндальное Молоко', price: 4, selected: false,
-  },
-];
+const ShopInfo = function () {
+  const { title, address, deliveryInfo } = {
+    title: 'Кофе, сендвичи, десерты',
+    address: 'Ионна Павла 2, 10K3',
+    deliveryInfo: 'Доставка 5-15 минут или забрать самому',
+  };
+  return (
+    <ShopInfoBox>
+      <ShopInfoItem>
+        <ShoppingBag size="25" />
+        <ShopInfoItemSpan>{title}</ShopInfoItemSpan>
+      </ShopInfoItem>
+      <ShopInfoItem>
+        <Home size="25" />
+        <ShopInfoItemSpan>{address}</ShopInfoItemSpan>
+      </ShopInfoItem>
+      <ShopInfoItem>
+        <Clock size="25" />
+        <ShopInfoItemSpan>{deliveryInfo}</ShopInfoItemSpan>
+      </ShopInfoItem>
+    </ShopInfoBox>
+  );
+};
 
-const products = [
-  {
-    id: 1, title: 'Флет-вайт', image: DefaultLogo, price: 5, description: 'coffee', quantity: 0, toppings: [...toppings],
-  },
-  {
-    id: 2, title: 'Фильтр', image: DefaultLogo, price: 15, description: 'coffee, vvvv', quantity: 0, toppings: [...toppings],
-  },
-  {
-    id: 3, title: 'Капучино', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
-  },
-  {
-    id: 4, title: 'Капучино 2', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
-  },
-  {
-    id: 5, title: 'Капучино 3', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
-  },
-  {
-    id: 6, title: 'Капучино 4', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
-  },
-];
+const MainMenu = function () {
+  return (
+    <MenuBox>
+      <Link to="menu/coffee">
+        <MenuItem>
+          <MenuInfoItemSpan>Кофе</MenuInfoItemSpan>
+          <Coffee color="white" size="26" />
+        </MenuItem>
+      </Link>
+      <Link to="menu/mainDishes">
+        <MenuItem>
+          <MenuInfoItemSpan>Основное Меню</MenuInfoItemSpan>
+          <Folder color="white" size="26" />
+        </MenuItem>
+      </Link>
+      <Link to="menu/deserts">
+        <MenuItem>
+          <MenuInfoItemSpan>Десерты</MenuInfoItemSpan>
+          <Heart color="white" size="26" />
+        </MenuItem>
+      </Link>
+    </MenuBox>
+  );
+};
 
 const HomePage = function () {
   return (
     <>
-      <Header>
-        <HeaderContent>Кофе</HeaderContent>
-        <CartButton />
-      </Header>
-      <ItemsList products={products} />
-      <OrderButton />
+      <LogoBox>
+        <img src={ShopLogo} alt="shop's logo" />
+      </LogoBox>
+      <ShopInfo />
+      <MainMenu />
     </>
   );
 };

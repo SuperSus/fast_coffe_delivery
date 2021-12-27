@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeftCircle, ShoppingCart } from 'react-feather';
 import {
   StyledHeader, StyledNav, StyledContentBlock, StyledItem, StyledCircleContainer,
 } from './styles/Header.styled';
 
 const BackButton = function () {
+  const location = useLocation();
   const navigate = useNavigate();
+  // if we are on the menu pages then we should always go back to the home page
+  const goBack = location.pathname.includes('menu/') ? () => navigate('/') : () => navigate(-1);
   return (
-    <StyledItem onClick={() => navigate((-1))}>
+    <StyledItem onClick={goBack}>
       <ArrowLeftCircle size={48} />
     </StyledItem>
   );
