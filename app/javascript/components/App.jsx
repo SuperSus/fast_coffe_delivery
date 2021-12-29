@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import AppRoutes from '../routes/index';
 import { CartContextProvider } from '../contexts/CartContext';
+import { AuthProvider } from '../contexts/AuthContext';
 
 const Styles = {
   Wrapper: styled.main`
@@ -40,12 +41,14 @@ const CSSReset = createGlobalStyle`
 
 const App = function () {
   return (
-    <CartContextProvider>
-      <Styles.Wrapper>
-        <CSSReset />
-        {AppRoutes}
-      </Styles.Wrapper>
-    </CartContextProvider>
+    <AuthProvider>
+      <CartContextProvider>
+        <Styles.Wrapper>
+          <CSSReset />
+          {AppRoutes}
+        </Styles.Wrapper>
+      </CartContextProvider>
+    </AuthProvider>
   );
 };
 export default App;
