@@ -21,4 +21,10 @@ Product.create(
       id: 3, title: 'Капучино', price: 10, description: 'coffee, milk, watter', category: 'coffee'
     }
   ]
-)
+).each do
+  _1.image.attach(
+    io: File.open(File.join(Rails.root, 'app/assets/images/defaultProduct.jpg')),
+    filename: 'defaultProduct.jpg',
+    content_type: 'application/jpg'
+  )
+end

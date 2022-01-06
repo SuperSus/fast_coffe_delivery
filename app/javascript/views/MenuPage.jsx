@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import DefaultLogo from 'images/logo.jpg';
+import DefaultLogo from 'images/defaultProduct.jpg';
 import { fetchData } from '../utils/Api';
 import {
   Header, HeaderContent, ItemsList, OrderButton, CartButton,
@@ -24,18 +24,6 @@ const products = [
   },
   {
     id: 2, title: 'Фильтр', image: DefaultLogo, price: 15, description: 'coffee, vvvv', quantity: 0, toppings: [...toppings],
-  },
-  {
-    id: 3, title: 'Капучино', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
-  },
-  {
-    id: 4, title: 'Капучино 2', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
-  },
-  {
-    id: 5, title: 'Капучино 3', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
-  },
-  {
-    id: 6, title: 'Капучино 4', image: DefaultLogo, price: 10, description: 'coffee, milk, watter', quantity: 0,
   },
 ];
 
@@ -64,7 +52,7 @@ const MenuPage = function () {
         <HeaderContent>{categoryHeaders[category]}</HeaderContent>
         <CartButton />
       </Header>
-      <ItemsList products={products} />
+      <ItemsList products={_products} />
       <OrderButton />
     </>
   );

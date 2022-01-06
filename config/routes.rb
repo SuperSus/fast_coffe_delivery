@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   get '/check.txt', to: proc { [200, {}, ['it_works']] }
-  get '*path', to: 'home#index'
+  get '*path', to: 'home#index', constraints: ->(req) { !req.url['active_storage'] }
 end
