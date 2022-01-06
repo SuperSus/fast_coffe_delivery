@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import DefaultLogo from 'images/logo.jpg';
+import { fetchData } from '../utils/Api';
 import {
   Header, HeaderContent, ItemsList, OrderButton, CartButton,
 } from '../components';
@@ -46,7 +47,17 @@ const categoryHeaders = {
 
 const MenuPage = function () {
   const { category } = useParams();
+  const [_products, setProducts] = useState([]);
 
+  useEffect(() => {
+    async function fetchProducts() {
+      const response = await fetchData('/api/products', { category });
+      const parsedProducts = response?.data?.map((item) => ({ id: item.id, ...item.attributes }));
+      console.log(parsedProducts);
+      setProducts(parsedProducts);
+    }
+    fetchProducts();
+  }, []);
   return (
     <>
       <Header>
