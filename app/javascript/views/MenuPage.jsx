@@ -40,7 +40,13 @@ const MenuPage = function () {
   useEffect(() => {
     async function fetchProducts() {
       const response = await fetchData('/api/products', { category });
-      const parsedProducts = response?.data?.map((item) => ({ id: item.id, ...item.attributes }));
+      console.log(response.data);
+      const parsedProducts = response?.data?.map((item) => (
+        {
+          id: item.id,
+          ...item.attributes,
+        }
+      ));
       console.log(parsedProducts);
       setProducts(parsedProducts);
     }

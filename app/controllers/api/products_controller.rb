@@ -4,7 +4,7 @@ module Api
   class ProductsController < BaseController
     def index
       render json: ProductSerializer
-        .new(Product.where(category: params[:category]).with_image)
+        .new(Product.where(category: params[:category]).with_image.with_toppings)
         .serializable_hash
     end
   end

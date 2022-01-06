@@ -8,18 +8,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Topping.delete_all
+Topping.create(
+  [
+    { title: 'Кокосовое Молоко', price: 2 },
+    { title: 'Безлактозное Молоко', price: 3 },
+    { title: 'Миндальное Молоко', price: 4 }
+  ]
+)
+
 Product.delete_all
 Product.create(
   [
-    {
-      id: 1, title: 'Флет-вайт', price: 5, description: 'coffee', category: 'coffee'
-    },
-    {
-      id: 2, title: 'Фильтр', price: 15, description: 'coffee, vvvv', category: 'coffee'
-    },
-    {
-      id: 3, title: 'Капучино', price: 10, description: 'coffee, milk, watter', category: 'coffee'
-    }
+    { title: 'Флет-вайт', price: 5, description: 'coffee', category: 'coffee' },
+    { title: 'Фильтр', price: 15, description: 'coffee, vvvv', category: 'coffee' },
+    { title: 'Капучино', price: 10, description: 'coffee, milk, watter', category: 'coffee' }
   ]
 ).each do
   _1.image.attach(
@@ -27,4 +30,6 @@ Product.create(
     filename: 'defaultProduct.jpg',
     content_type: 'application/jpg'
   )
+  _1.toppings = Topping.all
+  _1.save
 end

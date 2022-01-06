@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_106_134_204) do
+ActiveRecord::Schema.define(version: 20_220_106_150_950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -48,6 +48,20 @@ ActiveRecord::Schema.define(version: 20_220_106_134_204) do
   create_table 'products', force: :cascade do |t|
     t.string 'category'
     t.text 'description'
+    t.string 'title'
+    t.decimal 'price'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'products_toppings', id: false, force: :cascade do |t|
+    t.bigint 'product_id'
+    t.bigint 'topping_id'
+    t.index ['product_id'], name: 'index_products_toppings_on_product_id'
+    t.index ['topping_id'], name: 'index_products_toppings_on_topping_id'
+  end
+
+  create_table 'toppings', force: :cascade do |t|
     t.string 'title'
     t.decimal 'price'
     t.datetime 'created_at', precision: 6, null: false
