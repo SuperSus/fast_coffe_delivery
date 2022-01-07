@@ -18,7 +18,7 @@ module Telegram
     #   chosen_inline_result(result_id, query)
     #   callback_query(data)
 
-    def start!(word = nil, *other_words)
+    def start!(_word = nil, *_other_words)
       response = from ? "Hello #{from['username']}!" : 'Hi there!'
 
       respond_with :message, text: response

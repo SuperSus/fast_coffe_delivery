@@ -68,13 +68,12 @@ Counter.propTypes = {
   setEditModalState: PropTypes.func,
   cartMode: PropTypes.bool,
   product: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     title: PropTypes.string,
     image: PropTypes.any,
-    price: PropTypes.number,
-    salePrice: PropTypes.number,
+    price: PropTypes.string,
+    salePrice: PropTypes.string,
     description: PropTypes.string,
-    quantity: PropTypes.number,
     toppings: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
@@ -143,13 +142,12 @@ Item.propTypes = {
   withCounter: PropTypes.bool,
   cartMode: PropTypes.bool,
   product: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     title: PropTypes.string,
     image: PropTypes.any,
-    price: PropTypes.number,
-    salePrice: PropTypes.number,
+    price: PropTypes.string,
+    salePrice: PropTypes.string,
     description: PropTypes.string,
-    quantity: PropTypes.number,
     toppings: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
