@@ -67,4 +67,9 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # In order to use telegram login in development we need a public domain
+  # ngrok 3000
+  # then configure dev_bot domain in BotFather fot test bot
+  # config.hosts << 'ca89-178-127-74-155.ngrok.i.io'
 end

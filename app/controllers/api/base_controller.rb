@@ -2,6 +2,8 @@
 
 module Api
   class BaseController < ActionController::API
+    before_action :auto_sign_in if Rails.env.development?
+
     rescue_from(StandardError) { |e| handle_exception(e) }
 
     private
@@ -28,6 +30,10 @@ module Api
                end
 
       render json: errors, status: status
+    end
+
+    def auto_sign_in
+      sign_in(:user, User.first) unless user_signed_in?
     end
   end
 end
