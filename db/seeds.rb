@@ -11,18 +11,19 @@
 Topping.delete_all
 Topping.create(
   [
-    { title: 'Кокосовое Молоко', price: 2 },
-    { title: 'Безлактозное Молоко', price: 3 },
-    { title: 'Миндальное Молоко', price: 4 }
+    { title: 'Кокосовое Молоко', price: 10 },
+    { title: 'Безлактозное Молоко', price: 15 },
+    { title: 'Миндальное Молоко', price: 20 }
   ]
 )
 
 Product.delete_all
 Product.create(
   [
-    { title: 'Флет-вайт', price: 5, description: 'coffee', category: 'coffee' },
-    { title: 'Фильтр', price: 15, description: 'coffee, vvvv', category: 'coffee' },
-    { title: 'Капучино', price: 10, description: 'coffee, milk, watter', category: 'coffee' }
+    { title: 'Флет-вайт', price: 50, description: 'coffee', category: 'coffee' },
+    { title: 'Фильтр', price: 40, description: 'coffee, vvvv', category: 'coffee' },
+    { title: 'Капучино', price: 35, description: 'coffee, milk, watter', category: 'coffee' },
+    { title: 'Латте', price: 30, description: 'coffee, milk, watter', category: 'coffee' }
   ]
 ).each do
   _1.image.attach(
