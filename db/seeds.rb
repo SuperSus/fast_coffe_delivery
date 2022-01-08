@@ -8,7 +8,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Topping.delete_all
+Topping.destroy_all
 Topping.create(
   [
     { title: 'Кокосовое Молоко', price: 10 },
@@ -17,7 +17,7 @@ Topping.create(
   ]
 )
 
-Product.delete_all
+Product.destroy_all
 Product.create(
   [
     { title: 'Флет-вайт', price: 50, description: 'coffee', category: 'coffee' },
@@ -25,7 +25,8 @@ Product.create(
     { title: 'Капучино', price: 35, description: 'coffee, milk, watter', category: 'coffee' },
     { title: 'Латте', price: 30, description: 'coffee, milk, watter', category: 'coffee' }
   ]
-).each do
+)
+Product.all.preload(:toppings).each do
   _1.image.attach(
     io: File.open(File.join(Rails.root, 'app/assets/images/defaultProduct.jpg')),
     filename: 'defaultProduct.jpg',

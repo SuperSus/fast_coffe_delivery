@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dokku": {
-      "postdeploy": "bundle exec rails db:migrate && bundle exec rails assets:precompile"
+      "postdeploy": "bundle exec rails assets:precompile && bundle exec rake db:seed"
     }
   }
 }
