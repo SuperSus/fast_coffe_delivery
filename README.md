@@ -33,6 +33,14 @@ https://kukicola.io/posts/deploying-rails-6-application-with-dokku/
 
 ssh root@ip
 
+### upgrade dokku
+https://dokku.com/docs/getting-started/upgrading/
+###### update your local apt cache
+sudo apt-get update -qq
+###### update dokku and its dependencies
+sudo apt-get -qq -y --no-install-recommends install dokku herokuish sshcommand plugn gliderlabs-sigil dokku-update dokku-event-listener
+dokku ps:rebuild --all
+
 - add swap file to prevent oom
 ```bash
 fallocate -l 4G /swapfile
@@ -73,6 +81,12 @@ dokku config:set --no-restart fastcoffedelivery DOKKU_LETSENCRYPT_EMAIL=sikorsky
 dokku letsencrypt:enable fastcoffedelivery
 -- to update certificates automatically
 dokku letsencrypt:cron-job --add
+
+### MOUNT persisted storage
+dokku storage:ensure-directory --chown fastcoffedelivery_storage
+chmod -R 'a+w' /var/lib/dokku/data/storage/fastcoffedelivery_storage
+dokku storage:mount fastcoffedelivery /var/lib/dokku/data/storage/fastcoffedelivery_storage:/app/storage
+dokku storage:list fastcoffedelivery
 
 PROCFILE:
 web: bundle exec puma -C config/puma.rb
