@@ -1,17 +1,33 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { fetchData } from '../utils/Api';
 
 const authContext = React.createContext();
 
 function useAuth() {
-  const [authed, setAuthed] = React.useState(false);
+  const [authed, setAuthed] = useState(false);
+  const [currentUser, setUser] = useState({});
 
   return {
     authed,
+    currentUser,
     login() {
-      return new Promise((res) => {
-        setAuthed(true);
-        res();
-      });
+      if (authed) {
+        return new Promise((res) => {
+          res(true);
+        });
+      }
+      async function fetchUser() {
+        const response = await fetchData('/api/users/current');
+        const userData = response.data;
+        if (!userData) {
+          return { userSignedIn: false };
+        }
+        const user = { id: userData.id, ...userData.attributes };
+        setUser(user);
+        return user;
+      }
+      return fetchUser()
+        .then((user) => setAuthed(user.userSignedIn));
     },
     logout() {
       return new Promise((res) => {
