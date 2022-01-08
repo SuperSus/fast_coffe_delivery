@@ -4,11 +4,6 @@
   "keywords": [
     "dokku",
     "rails"
-  ],
-  "scripts": {
-    "dokku": {
-      "postdeploy": "bundle exec rails db:migrate && bundle exec rails assets:precompile"
-    }
-  }
+  ]
 }
 

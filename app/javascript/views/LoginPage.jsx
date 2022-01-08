@@ -7,7 +7,10 @@ const Login = function () {
   const navigate = useNavigate();
   const { login } = useAuth();
   const { state } = useLocation();
-  const dataAuthUrl = document.querySelector('[name=telegram-auth]').content;
+  const [botName, dataAuthUrl] = document
+    .querySelector('[name=telegram-auth]')
+    .content
+    .split(',');
 
   useEffect(
     () => login().then((success) => success && navigate(state?.path || '/')),
@@ -20,7 +23,7 @@ const Login = function () {
       {/* <button onClick={handleLogin}>Log in with viber</button> */}
       <TelegramLoginButton
         dataAuthUrl={dataAuthUrl}
-        botName="fast_deliverytest_bot"
+        botName={botName}
         widgetVersion={14}
         buttonSize="large"
         requestAccess="write"
