@@ -20,7 +20,6 @@ module Users
 
       @user = User.from_omniauth(auth_data)
       if @user.persisted?
-        binding.pry
         sign_in_and_redirect @user, event: :authentication
       else
         session["devise.#{auth_data['provider']}_data"] = auth_data.except(:extra)
