@@ -8,7 +8,7 @@ import { getPrice } from '../utils/Product';
 import { StyledOutlinedMainButton } from './styles/OutlinedMainButton.styled';
 import {
   CheckBoxesWrapper, CheckBoxRow, CheckBox, Label, Price, Divider,
-} from './styles/BottomModal.styled';
+} from './styles/EditItemModal.styled';
 
 const Topping = function ({ topping: { title, price, selected }, toggle }) {
   return (
