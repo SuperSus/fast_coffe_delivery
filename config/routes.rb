@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'home/index'
     get 'users/current'
     resources :products, only: %i[index]
+    resources :orders, only: %i[create]
   end
   root to: 'home#index'
 

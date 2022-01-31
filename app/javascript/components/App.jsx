@@ -37,6 +37,20 @@ const CSSReset = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  
+  textarea {
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    
+    font-family: Roboto;
+
+    resize: none; /*remove the resize handle on the bottom right*/
+  }
 `;
 
 const App = function () {

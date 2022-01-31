@@ -9,3 +9,19 @@ export const fetchData = async function (path, params) {
     return {};
   }
 };
+
+export const postData = async function (path, data = {}) {
+  try {
+    const response = await fetch(path, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Ошибка:', error);
+    return {};
+  }
+};

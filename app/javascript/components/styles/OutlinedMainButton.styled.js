@@ -30,5 +30,6 @@ export const StyledOutlinedMainButton = styled.div`
   width: 100%;
   font-size: 20px;
   line-height: 28px;
-  color:#000;
+  background:${({ variant }) => (variant === 'dark' ? '#000' : '#fff')};
+  color:${({ variant }) => (variant === 'dark' ? '#fff' : '#000')};
 `;

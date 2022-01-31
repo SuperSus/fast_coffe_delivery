@@ -13,7 +13,7 @@ const CartPage = function () {
         <TotalPrice totalPrice={cartContext.getTotalPrice()} />
       </Header>
       <ItemsList products={cartContext.getCartProducts()} cartMode />
-      <OrderButton />
+      <OrderButton link="/order" text="Оформить заказ на" />
     </>
   );
 };

@@ -8,7 +8,7 @@ import { getPrice } from '../utils/Product';
 import { StyledOutlinedMainButton } from './styles/OutlinedMainButton.styled';
 import {
   CheckBoxesWrapper, CheckBoxRow, CheckBox, Label, Price, Divider,
-} from './styles/BottomModal.styled';
+} from './styles/EditItemModal.styled';
 
 const Topping = function ({ topping: { title, price, selected }, toggle }) {
   return (
@@ -30,13 +30,13 @@ const Topping = function ({ topping: { title, price, selected }, toggle }) {
   );
 };
 
-Topping.prototypes = {
+Topping.propTypes = {
   topping: PropTypes.shape({
     title: PropTypes.string,
     price: PropTypes.number,
     selected: PropTypes.bool,
   }).isRequired,
-  toggle: PropTypes.func,
+  toggle: PropTypes.func.isRequired,
 };
 
 const EditItemModal = function ({ state, setState }) {

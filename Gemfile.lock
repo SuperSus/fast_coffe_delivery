@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.2.0)
+      concurrent-ruby (~> 1.0)
     actioncable (6.1.4.1)
       actionpack (= 6.1.4.1)
       activesupport (= 6.1.4.1)
@@ -60,6 +62,9 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    after_commit_everywhere (1.1.0)
+      activerecord (>= 4.2)
+      activesupport
     ast (2.4.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
@@ -81,6 +86,29 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    dry-configurable (0.14.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.6)
+    dry-container (0.9.0)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 0.13, >= 0.13.0)
+    dry-core (0.7.1)
+      concurrent-ruby (~> 1.0)
+    dry-inflector (0.2.1)
+    dry-initializer (3.1.1)
+    dry-logic (1.2.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.5, >= 0.5)
+    dry-struct (1.4.0)
+      dry-core (~> 0.5, >= 0.5)
+      dry-types (~> 1.5)
+      ice_nine (~> 0.11)
+    dry-types (1.5.1)
+      concurrent-ruby (~> 1.0)
+      dry-container (~> 0.3)
+      dry-core (~> 0.5, >= 0.5)
+      dry-inflector (~> 0.1, >= 0.1.2)
+      dry-logic (~> 1.0, >= 1.0.2)
     erubi (1.10.0)
     ffi (1.15.4)
     globalid (0.5.2)
@@ -90,6 +118,7 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    ice_nine (0.11.2)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     jsonapi-serializer (2.2.0)
@@ -220,7 +249,6 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     semantic_range (3.0.0)
-    spring (3.0.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -262,11 +290,15 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  aasm
+  after_commit_everywhere (~> 1.0)
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   byebug
   devise
   dotenv-rails
+  dry-initializer (~> 3.0)
+  dry-struct (~> 1.4)
   hiredis
   jbuilder (~> 2.7)
   jsonapi-serializer
@@ -285,7 +317,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  spring
   telegram-bot
   turbolinks (~> 5)
   tzinfo-data
