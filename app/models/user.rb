@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   enum role: %i[customer admin]
 
+  has_many :orders, foreign_key: 'customer_id', dependent: :destroy
+
   def self.from_omniauth(auth)
     where("#{auth.provider}_id" => auth.uid).first_or_create! do |user|
       user.send("#{auth.provider}_id=", auth.uid)

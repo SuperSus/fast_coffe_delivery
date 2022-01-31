@@ -7,6 +7,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
+admin = User.create(first_name: 'Admin', last_name: 'admin', role: 'admin')
 
 Topping.destroy_all
 Topping.create(
@@ -35,3 +37,15 @@ Product.all.preload(:toppings).each do
   _1.toppings = Topping.all
   _1.save
 end
+
+Address.destroy_all
+address = Address.create(street: 'foo', flat: 1, house: 1, floor: 1)
+
+Order.destroy_all
+o = Order.new(
+  address: address,
+  customer: admin,
+  items: [{ id: Product.last.id, toppings: Topping.all.map(&:as_json), quantity: 2 }]
+)
+o.comment = Comment.new(content: 'bar')
+o.save

@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_107_165_306) do
+ActiveRecord::Schema.define(version: 20_220_126_001_432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -43,6 +43,37 @@ ActiveRecord::Schema.define(version: 20_220_107_165_306) do
     t.bigint 'blob_id', null: false
     t.string 'variation_digest', null: false
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
+  end
+
+  create_table 'addresses', force: :cascade do |t|
+    t.string 'street'
+    t.integer 'house'
+    t.integer 'flat'
+    t.integer 'floor'
+    t.string 'details'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'comments', force: :cascade do |t|
+    t.bigint 'order_id', null: false
+    t.string 'title'
+    t.text 'content'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['order_id'], name: 'index_comments_on_order_id'
+  end
+
+  create_table 'orders', force: :cascade do |t|
+    t.bigint 'customer_id', null: false
+    t.bigint 'address_id', null: false
+    t.string 'status'
+    t.decimal 'total_cost'
+    t.jsonb 'items'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['address_id'], name: 'index_orders_on_address_id'
+    t.index ['customer_id'], name: 'index_orders_on_customer_id'
   end
 
   create_table 'products', force: :cascade do |t|
@@ -89,4 +120,7 @@ ActiveRecord::Schema.define(version: 20_220_107_165_306) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'comments', 'orders', on_delete: :cascade
+  add_foreign_key 'orders', 'addresses'
+  add_foreign_key 'orders', 'users', column: 'customer_id'
 end
