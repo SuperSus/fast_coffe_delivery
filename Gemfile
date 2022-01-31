@@ -5,6 +5,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
 
+gem 'aasm'
+gem 'after_commit_everywhere', '~> 1.0'
+gem 'dry-initializer', '~> 3.0'
+gem 'dry-struct', '~> 1.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.1'
 # Use postgresql as the database for Active Record
@@ -50,7 +54,7 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  # gem 'spring'
 
   gem 'pry'
   gem 'pry-byebug'

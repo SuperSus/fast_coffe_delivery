@@ -19,3 +19,9 @@ styled-system
 CartContext, OrderButton, EditItemModal
 ### Added Dependencies
 react-spring-modal
+
+## 2022-01-31
+### Added
+Order, Address, Comment
+### Added Dependencies
+aasm, after_commit_everywhere, dry-initializer, dry-struct
