@@ -109,6 +109,13 @@ export const CartContextProvider = function ({ children }) {
     return uniqWith(Object.values(cartState).flat(), isEqual);
   };
 
+  const getOrderProducts = function () {
+    return getCartProducts().map((item) => {
+      const toppings = item.toppings.filter((topping) => topping.selected);
+      return { id: item.id, quantity: getExactQuantity(item), toppings };
+    });
+  };
+
   const value = useMemo(() => ({
     cartState,
     addProduct,
@@ -118,6 +125,7 @@ export const CartContextProvider = function ({ children }) {
     getQuantity,
     getExactQuantity,
     getCartProducts,
+    getOrderProducts,
   }), [cartState]);
 
   return (

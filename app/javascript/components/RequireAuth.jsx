@@ -4,7 +4,7 @@ import useAuth from '../contexts/AuthContext';
 
 const RequireAuth = function ({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const { login, currentUser, authed } = useAuth();
+  const { login, authed } = useAuth();
   const location = useLocation();
 
   useEffect(() => {

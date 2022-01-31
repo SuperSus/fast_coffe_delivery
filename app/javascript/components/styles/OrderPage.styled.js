@@ -62,3 +62,15 @@ export const InfoSpan = styled.span`
   ${({ isLast }) => (isLast ? 'justify-self: end;' : '')}
   ${({ isCentral }) => (isCentral ? 'flex: 1' : '')}
 `;
+
+export const ModalHeader = styled.div`
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 8px 0px;
+`;
+
+export const ModalInfo = styled.div`
+  line-height: 24px;
+  margin: 8px 0px 32px 0px;
+`;
